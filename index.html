@@ -1,63 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <head>
+<meta charset="UTF-8">
 <title>Flux Shop</title>
 
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    font-family: Arial;
-    overflow: hidden;
-}
-
-/* фон */
-.bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("https://img.freepik.com/premium-vector/soft-dark-violet-gradient-background_768131-904.jpg?semt=ais_hybrid&w=740&q=80") no-repeat center center/cover;
-    filter: brightness(35%);
-    z-index: -1;
-}
-
-/* весь контент */
-.container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* центр по вертикалі */
-    align-items: center;     /* центр по горизонталі */
-    color: white;
-}
-
-/* назва трохи вище */
-.title {
-    font-size: 60px;
-    margin-bottom: 200px;
-    transform: translateY(-40px);
-}
-
-/* лого */
-.logo {
-    width: 180px;
-    height: auto;
-}
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- Фон -->
 <div class="bg"></div>
 
-<div class="container">
-    <div class="title">Flux Shop</div>
-    
-    <img class="logo" src="">
-</div>
+<!-- Верхнє меню -->
+<header class="header">
+    <div class="logo">Flux Shop</div>
+
+    <nav class="nav">
+        <a href="#">Головна</a>
+        <a href="#">Ігри</a>
+        <a href="#">Акції</a>
+        <a href="#">Підтримка</a>
+    </nav>
+</header>
+
+<!-- Головний блок -->
+<section class="hero">
+    <h1>Welcome to Flux Shop</h1>
+    <p>Твій цифровий магазин ігор</p>
+
+    <button class="btn">Перейти в магазин</button>
+</section>
 
 </body>
 </html>
