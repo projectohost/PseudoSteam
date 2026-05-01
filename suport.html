@@ -1,119 +1,81 @@
  <!DOCTYPE html>
-
 <html lang="uk">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Flux Shop | Support</title>
     <link rel="stylesheet" href="./suport.css">
 </head>
-
 <body>
 
-
-
     <nav class="navbar">
-
-        <div class="logo-area">
-
-            Flux Shop
-
-        </div>
-
+        <div class="logo-area">Flux Shop</div>
         <ul class="nav-links">
-
             <li><a href="#">Головна</a></li>
-
             <li><a href="#">Каталог</a></li>
-
             <li><a href="#support">Підтримка</a></li>
-
         </ul>
-
     </nav>
 
-
-
     <section class="support-section" id="support">
-
         <div class="support-header">
-
             <h1>Зона підтримки Flux</h1>
-
         </div>
-
-
 
         <div class="support-container">
-
-           
-
+            
+            <!-- Картка 1 -->
             <div class="card">
-
                 <h3>Контакти</h3>
-
                 <p>Ми на зв'язку у зручних для вас каналах.</p>
-
-                <a href="https://t.me/your_account" class="btn">Telegram чат</a>
-
+                <a href="https://t.me/pspasha_009_y" target="_blank" class="btn pulse">Send Message</a>
                 <a href="mailto:help@fluxshop.com" class="btn" style="background: transparent; border: 1px solid var(--main-purple);">Email Support</a>
-
             </div>
 
-
-
+            <!-- Картка 2 (Форма) -->
             <div class="card">
-
                 <h3>Написати нам</h3>
-
-                <form action="https://formspree.io/f/ваш_ід" method="POST" class="support-form">
-
-                    <input type="email" name="email" placeholder="Ваш Email" required>
-
-                    <textarea name="message" rows="4" placeholder="Що трапилося?" required></textarea>
-
-                    <button type="submit" class="btn">Відправити тікет</button>
-
-                </form>
-
+                <div id="formContent" class="support-form">
+                    <input type="email" id="userEmail" placeholder="Ваш Email" required>
+                    <textarea id="userMessage" rows="4" placeholder="Що трапилося?" required></textarea>
+                    <button type="button" onclick="submitTicket()" class="btn">Send Ticket</button>
+                </div>
+                <div id="successStatus" class="success-message"></div>
             </div>
 
-
-
+            <!-- Картка 3 -->
             <div class="card">
-
                 <h3>FAQ</h3>
-
                 <details>
-
                     <summary>Де моє замовлення?</summary>
-
                     <p style="font-size: 13px; color: var(--text-gray);">Ви можете відстежити його в особистому кабінеті Flux.</p>
-
                 </details>
-
                 <details>
-
                     <summary>Як повернути товар?</summary>
-
-                    <p style="font-size: 13px; color: var(--text-gray);">Повернення можливе протягом 14 днів через цю форму.</p>
-
+                    <p style="font-size: 13px; color: var(--text-gray);">Повернення можливе протягом 14 днів.</p>
                 </details>
-
             </div>
-
-
 
         </div>
-
     </section>
 
+    <script>
+        function submitTicket() {
+            const email = document.getElementById('userEmail').value;
+            const message = document.getElementById('userMessage').value;
+            const formContent = document.getElementById('formContent');
+            const successStatus = document.getElementById('successStatus');
 
+            if (!email || !message) {
+                alert("Заповніть всі поля!");
+                return;
+            }
+
+            formContent.style.display = "none";
+            successStatus.innerText = "Дякую за попередження ми вам допоможемо в найблищому часі";
+            successStatus.style.display = "block";
+        }
+    </script>
 
 </body>
-
 </html>

@@ -1,323 +1,164 @@
-/* Основні кольори під логотип */
-
-:root {
-
+ :root {
     --bg-color: #0d0216;
-    /* Глибокий темно-фіолетовий */
-
     --main-purple: #7b1fa2;
-    /* Фіолетовий з лого */
-
     --light-purple: #ae52d4;
-
     --card-bg: #1a0b2e;
-
     --text-gray: #b5b5b5;
-
+    --success-green: #2ecc71;
 }
-
-
 
 body {
-
     margin: 0;
-
     padding: 0;
-
     font-family: 'Segoe UI', sans-serif;
-
     background-color: var(--bg-color);
-
     color: #ffffff;
-
-    scroll-behavior: smooth;
-
+    overflow-x: hidden;
 }
-
-
 
 /* Навігація */
-
 .navbar {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     padding: 15px 50px;
-
     background-color: rgba(26, 11, 46, 0.8);
-
     backdrop-filter: blur(10px);
-
     border-bottom: 2px solid var(--main-purple);
-
     position: sticky;
-
     top: 0;
-
     z-index: 1000;
-
 }
-
-
 
 .logo-area {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
     font-size: 24px;
-
     font-weight: bold;
-
     color: var(--light-purple);
-
     text-transform: uppercase;
-
 }
-
-
 
 .nav-links {
-
     display: flex;
-
     list-style: none;
-
     gap: 25px;
-
-    margin: 0;
-
 }
-
-
 
 .nav-links a {
-
     text-decoration: none;
-
     color: var(--text-gray);
-
     transition: 0.3s;
-
 }
-
-
 
 .nav-links a:hover {
-
     color: var(--light-purple);
-
-    text-shadow: 0 0 8px var(--main-purple);
-
 }
 
-
-
-/* Зона підтримки */
-
+/* Секція */
 .support-section {
-
     padding: 60px 20px;
-
     text-align: center;
-
 }
-
-
 
 .support-header h1 {
-
-    font-size: 42px;
-
+    font-size: 40px;
     background: linear-gradient(45deg, #ffffff, var(--light-purple));
-
     -webkit-background-clip: text;
-
     -webkit-text-fill-color: transparent;
-
     margin-bottom: 40px;
-
 }
 
-
-
+/* Контейнер і Картки з анімацією появи */
 .support-container {
-
     display: flex;
-
     gap: 25px;
-
     justify-content: center;
-
     flex-wrap: wrap;
-
     max-width: 1100px;
-
     margin: 0 auto;
-
 }
-
-
-
-/* Картки */
 
 .card {
-
     background: var(--card-bg);
-
     border: 1px solid rgba(123, 31, 162, 0.3);
-
     border-radius: 20px;
-
     padding: 30px;
-
     flex: 1;
-
     min-width: 280px;
-
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
+    transition: 0.4s;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s forwards;
 }
 
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
 
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.3s; }
+.card:nth-child(3) { animation-delay: 0.5s; }
 
 .card:hover {
-
-    transform: translateY(-12px);
-
+    transform: translateY(-10px) !important;
     border-color: var(--light-purple);
-
-    box-shadow: 0 10px 30px rgba(123, 31, 162, 0.2);
-
 }
-
-
-
-.card h3 {
-
-    color: var(--light-purple);
-
-    margin-bottom: 15px;
-
-}
-
-
 
 /* Кнопки */
-
 .btn {
-
-    display: inline-block;
-
+    display: block;
     background: linear-gradient(135deg, var(--main-purple), #4a148c);
-
     color: white;
-
-    padding: 12px 25px;
-
+    padding: 14px;
     text-decoration: none;
-
     border-radius: 30px;
-
     font-weight: bold;
-
     border: none;
-
     cursor: pointer;
-
-    transition: 0.3s;
-
     margin-top: 15px;
-
     width: 100%;
-
+    text-align: center;
+    font-size: 16px;
+    transition: 0.3s;
 }
 
-
-
-.btn:hover {
-
-    filter: brightness(1.2);
-
-    box-shadow: 0 0 20px rgba(174, 82, 212, 0.4);
-
+/* Анімація пульсації для кнопки Telegram */
+.pulse {
+    animation: pulse-animation 2s infinite;
 }
 
+@keyframes pulse-animation {
+    0% { box-shadow: 0 0 0 0 rgba(174, 82, 212, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(174, 82, 212, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(174, 82, 212, 0); }
+}
 
+/* Зелений текст */
+.success-message {
+    display: none;
+    color: var(--success-green);
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 20px;
+    line-height: 1.6;
+    animation: fadeIn 0.5s ease-in;
+}
 
-/* Форма */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
 .support-form {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 12px;
-
 }
 
-
-
-.support-form input,
-.support-form textarea {
-
+.support-form input, .support-form textarea {
     background: rgba(255, 255, 255, 0.05);
-
     border: 1px solid #3d2b52;
-
     color: white;
-
     padding: 12px;
-
     border-radius: 10px;
-
     outline: none;
-
-}
-
-
-
-.support-form input:focus,
-.support-form textarea:focus {
-
-    border-color: var(--light-purple);
-
-}
-
-
-
-/* FAQ */
-
-details {
-
-    background: rgba(255, 255, 255, 0.03);
-
-    margin-top: 10px;
-
-    padding: 10px;
-
-    border-radius: 8px;
-
-    text-align: left;
-
-    cursor: pointer;
-
-}
-
-
-
-summary {
-
-    font-weight: bold;
-
-    color: var(--text-gray);
-
 }
