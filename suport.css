@@ -162,3 +162,15 @@ body {
     border-radius: 10px;
     outline: none;
 }
+h1{
+    text-align: center;
+}
+p{
+    text-align: center;
+    font-weight: bold;
+}
+img{
+    width: 200px;
+    height: 200px;
+    margin-left: 170px;
+}
