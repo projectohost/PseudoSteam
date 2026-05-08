@@ -49,22 +49,17 @@ const tovari = [
     },
     {
         name: "GTA SAN ANDREAS",
-        category: "action RPG",
+        category: "хз",
         price: 100,
         image: "./images/GTA-San_Andreas.jpg"
     },
     {
         name: "GTA V",
-        category: "action RPG",
+        category: "хз",
         price: 1000 ,
         image: "./images/Grand_Theft_Auto_V.png"
     },
-    {
-        name: "Cyberpunk 2077",
-        category: "action RPG",
-        price: 500,
-        image: "./images/Cyberpunk_2077_box_art.jpg"
-    },
+    
 ]
 
 // Знаходимо контейнер, куди будемо додавати картки (переконайся, що в HTML є елемент з таким id)
