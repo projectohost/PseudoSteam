@@ -93,3 +93,8 @@ function renderCatalog(items) {
 
 // Запуск функції
 renderCatalog(tovari);
+
+const carey = document.querySelector('.corzuna-link');
+carey.addEventListener('click', () => {
+    alert('Ви перейшли до кошика!');
+})
