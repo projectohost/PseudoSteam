@@ -110,3 +110,8 @@
     .catalog { grid-template-columns: 1fr; }
     .game-card:first-child { grid-column: span 1; flex-direction: column; height: auto; }
 }
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #c084fc;
+}
