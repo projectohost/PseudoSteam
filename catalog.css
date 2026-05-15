@@ -110,3 +110,7 @@
     .catalog { grid-template-columns: 1fr; }
     .game-card:first-child { grid-column: span 1; flex-direction: column; height: auto; }
 }
+
+.viber {
+    background-size: 200% 200%;
+}
