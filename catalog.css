@@ -93,7 +93,7 @@
     cursor: pointer;
     font-weight: bold;
     transition: 0.3s;
-    margin-top: auto; /* Магія Flexbox */
+    margin-top: auto; /* Вирівнює кнопки в один ряд */
 }
 
 .buy-btn:hover {
@@ -101,7 +101,7 @@
     box-shadow: 0 0 15px var(--main-purple);
 }
 
-/* Адаптивність для мобільних */
+/* Адаптивність */
 @media (max-width: 1024px) {
     .catalog { grid-template-columns: repeat(2, 1fr); }
     .game-card:first-child { grid-column: span 2; }
@@ -120,51 +120,6 @@
 
 .viber {
     background-size: 200% 200%;
-}
-
-
-/* --- ТОЧНА НАВІГАЦІЯ ЯК В INDEX (Примусова) --- */
-.catalog-navbar {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 15px 50px !important;
-    background-color: rgba(26, 11, 46, 0.8) !important;
-    backdrop-filter: blur(10px) !important;
-    border-bottom: 2px solid var(--main-purple) !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 1000 !important;
-    width: 100% !important;
-}
-
-.catalog-navbar .logo-area {
-    font-size: 24px !important;
-    font-weight: bold !important;
-    color: var(--light-purple) !important;
-    text-transform: uppercase !important;
-}
-
-.catalog-navbar .nav-links {
-    display: flex !important;
-    list-style: none !important;
-    gap: 25px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.catalog-navbar .nav-links li {
-    list-style: none !important;
-}
-
-.catalog-navbar .nav-links a {
-    text-decoration: none !important;
-    color: var(--text-gray) !important;
-    transition: 0.3s !important;
-}
-
-.catalog-navbar .nav-links a:hover {
-    color: var(--light-purple) !important;
 }
 
 
