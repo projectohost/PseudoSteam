@@ -9,38 +9,27 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="./suport.css">
   <link rel="stylesheet" href="./catalog.css">
+</head>
 
 <body>
 
-  <nav class="navbar">
-
+  <nav class="catalog-navbar">
     <div class="logo-area">
-
       Flux Shop
-
     </div>
-
     <ul class="nav-links">
-      
       <li><a href="./index.html">Головна</a></li> 
       <li><a href="./catalog.html">Магазин</a></li>
-
-
       <li><a href="./suport.html">Підтримка</a></li>
-      <li class="corzuna-link"><a href="./corzuna.html"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+      <li class="corzuna-link">
+        <a href="./corzuna.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
             class="bi bi-basket2-fill" viewBox="0 0 16 16">
-            <path
-              d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1" />
-          </svg></a></li>
-
+            <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1" />
+          </svg>
+        </a>
+      </li>
     </ul>
-
-    <div class="carts">
-
-
-      
-    </div>
-
   </nav>
 
   <div id="carouselExampleIndicators" class="carousel slide">
@@ -78,16 +67,23 @@
   </div>
 
   <main>
-    <div class="catalog">
-
-    </div>
+    <div class="catalog"></div>
   </main>
 
+  <div id="cart-sidebar" class="cart-sidebar">
+    <div class="cart-header">
+      <h2>Кошик</h2>
+      <button id="close-cart-btn" class="close-btn">&times;</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">Всього: <span id="cart-total-price">0</span> грн</div>
+      <button class="buy-btn checkout-btn">Оформити замовлення</button>
+    </div>
+  </div>
 
   <script src="./catalog.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
 </html>

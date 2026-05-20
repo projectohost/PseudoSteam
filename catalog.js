@@ -1,80 +1,28 @@
 const tovari = [
-    {
-        name: "СS 2",
-        category: "shooter",
-        price: "free",
-        image: "./images/Counter-strike_2.jpg"
-    },
-    {
-        name: "Dota 2",
-        category: "Action role-playing game",
-        price: "free",
-        image: "./images/Dota_2.jpg"
-    },
-    {
-        name: "S.T.A.L.K.E.R 2",
-        category: "post-apocalyptic first-person shooter",
-        price: 1000,
-        image: "./images/S.T.A.L.K.E.R._2.jpg"
-    },
-    {
-        name: "Red Dead Redemption 2",
-        category:"western, shooter",
-        price: 500,
-        image: "./images/Red_2.jpg"
-    },
-    {
-        name: "Red Dead Redemption ",
-        category: "western, shooter",
-        price: 300,
-        image: "./images/Red_1.jpg"
-    },
-    {
-        name: "Rust",
-        category: "survival sim, first-person shooter",
-        price: 230,
-        image: "./images/Rust.jpeg"
-    },
-    {
-        name: "clash of clans",
-        category: "strategic game",
-        price: "free",
-        image: "./images/clash_of_clans.jpg"
-    },
-    {
-        name: "Cyberpunk 2077",
-        category: "action RPG",
-        price: 500,
-        image: "./images/Cyberpunk_2077_box_art.jpg"
-    },
-    {
-        name: "GTA SAN ANDREAS",
-        category: "хз",
-        price: 100,
-        image: "./images/GTA-San_Andreas.jpg"
-    },
-    {
-        name: "GTA V",
-        category: "хз",
-        price: 1000 ,
-        image: "./images/Grand_Theft_Auto_V.png"
-    },
-    
-]
+    { name: "СS 2", category: "shooter", price: "free", image: "./images/Counter-strike_2.jpg" },
+    { name: "Dota 2", category: "Action role-playing game", price: "free", image: "./images/Dota_2.jpg" },
+    { name: "S.T.A.L.K.E.R 2", category: "post-apocalyptic first-person shooter", price: 1000, image: "./images/S.T.A.L.K.E.R._2.jpg" },
+    { name: "Red Dead Redemption 2", category:"western, shooter", price: 500, image: "./images/Red_2.jpg" },
+    { name: "Red Dead Redemption ", category: "western, shooter", price: 300, image: "./images/Red_1.jpg" },
+    { name: "Rust", category: "survival sim, first-person shooter", price: 230, image: "./images/Rust.jpeg" },
+    { name: "clash of clans", category: "strategic game", price: "free", image: "./images/clash_of_clans.jpg" },
+    { name: "Cyberpunk 2077", category: "action RPG", price: 500, image: "./images/Cyberpunk_2077_box_art.jpg" },
+    { name: "GTA SAN ANDREAS", category: "хз", price: 100, image: "./images/GTA-San_Andreas.jpg" },
+    { name: "GTA V", category: "хз", price: 1000 , image: "./images/Grand_Theft_Auto_V.png" }
+];
 
-// Знаходимо контейнер, куди будемо додавати картки (переконайся, що в HTML є елемент з таким id)
+let cart = [];
+
 const container = document.querySelector('.catalog');
+const cartSidebar = document.getElementById('cart-sidebar');
+const cartItemsContainer = document.querySelector('.cart-items');
+const cartTotalPriceEl = document.getElementById('cart-total-price');
 
 function renderCatalog(items) {
-    // Очищуємо контейнер перед рендером
     container.innerHTML = "";
-
-    items.forEach(game => {
-        // Створюємо головну обгортку картки
+    items.forEach((game, index) => {
         const card = document.createElement('div');
         card.classList.add('game-card');
-
-        // Перевіряємо ціну: якщо це число, додаємо "грн", якщо текст — лишаємо як є
         const displayPrice = typeof game.price === 'number' ? `${game.price} грн` : game.price;
 
         card.innerHTML = `
@@ -83,18 +31,74 @@ function renderCatalog(items) {
                 <h3 class="game-title">${game.name}</h3>
                 <p class="game-category">Категорія: ${game.category}</p>
                 <p class="game-price">Ціна: <strong>${displayPrice}</strong></p>
-                <button class="buy-btn">Придбати</button>
+                <button class="buy-btn" data-index="${index}">Придбати</button>
             </div>
         `;
-
         container.appendChild(card);
     });
 }
 
-// Запуск функції
-renderCatalog(tovari);
+function updateCartUI() {
+    cartItemsContainer.innerHTML = "";
+    let total = 0;
 
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `<p style="text-align: center; color: var(--text-gray);">Кошик порожній :(</p>`;
+        cartTotalPriceEl.textContent = 0;
+        return;
+    }
+
+    cart.forEach((game, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.classList.add('cart-item');
+        const displayPrice = typeof game.price === 'number' ? `${game.price} грн` : game.price;
+        
+        if (typeof game.price === 'number') { total += game.price; }
+
+        itemEl.innerHTML = `
+            <img src="${game.image}" class="cart-item-img" alt="${game.name}">
+            <div class="cart-item-info">
+                <h4 class="cart-item-title">${game.name}</h4>
+                <p class="cart-item-price">${displayPrice}</p>
+                <button class="remove-item-btn" data-cart-index="${index}">Видалити</button>
+            </div>
+        `;
+        cartItemsContainer.appendChild(itemEl);
+    });
+    cartTotalPriceEl.textContent = total;
+}
+
+function addToCart(gameIndex) {
+    cart.push(tovari[gameIndex]);
+    updateCartUI();
+    cartSidebar.classList.add('open');
+}
+
+function removeFromCart(cartIndex) {
+    cart.splice(cartIndex, 1);
+    updateCartUI();
+}
+
+// Слухачі кліків
+document.body.addEventListener('click', (e) => {
+    if (e.target.classList.contains('buy-btn') && e.target.hasAttribute('data-index')) {
+        addToCart(e.target.getAttribute('data-index'));
+    }
+    if (e.target.classList.contains('remove-item-btn')) {
+        removeFromCart(e.target.getAttribute('data-cart-index'));
+    }
+});
+
+// Кнопка-перемикач кошика (відкрити/закрити)
 const carey = document.querySelector('.corzuna-link');
-carey.addEventListener('click', () => {
-    alert('Ви перейшли до кошика!');
-})
+carey.addEventListener('click', (e) => {
+    e.preventDefault();
+    cartSidebar.classList.toggle('open');
+});
+
+const closeCartBtn = document.getElementById('close-cart-btn');
+closeCartBtn.addEventListener('click', () => {
+    cartSidebar.classList.remove('open');
+});
+
+renderCatalog(tovari);
