@@ -78,6 +78,9 @@ function renderCatalog(items) {
         card.classList.add('game-card');
 
         const displayPrice = typeof game.price === 'number' ? `${game.price} грн` : game.price;
+        
+        // Перевіряємо, чи цей товар вже є в кошику (на випадок перемальовування каталогу)
+        const isAlreadyInCart = cart.some(cartGame => cartGame.name === game.name);
 
         card.innerHTML = `
             <img src="${game.image}" alt="${game.name}" class="game-image">
@@ -85,7 +88,9 @@ function renderCatalog(items) {
                 <h3 class="game-title">${game.name}</h3>
                 <p class="game-category">Категорія: ${game.category}</p>
                 <p class="game-price">Ціна: <strong>${displayPrice}</strong></p>
-                <button class="buy-btn" data-index="${index}">Придбати</button>
+                <button class="buy-btn" data-index="${index}" ${isAlreadyInCart ? 'disabled style="background: #555; cursor: not-allowed; box-shadow: none;"' : ''}>
+                    ${isAlreadyInCart ? 'Уже в кошику' : 'Придбати'}
+                </button>
             </div>
         `;
 
@@ -132,8 +137,21 @@ function updateCartUI() {
 // Додавання гри в кошик
 function addToCart(gameIndex) {
     const selectedGame = tovari[gameIndex];
+    
+    // ПЕРЕВІРКА: чи є вже гра з таким ім'ям у кошику
+    const exists = cart.some(game => game.name === selectedGame.name);
+    
+    if (exists) {
+        alert("Цей товар вже додано до кошика!");
+        return; 
+    }
+
     cart.push(selectedGame);
     updateCartUI();
+    
+    // Перемальовуємо каталог, щоб кнопка доданого товару заблокувалася
+    renderCatalog(tovari);
+    
     cartSidebar.classList.add('open');
 }
 
@@ -141,6 +159,9 @@ function addToCart(gameIndex) {
 function removeFromCart(cartIndex) {
     cart.splice(cartIndex, 1);
     updateCartUI();
+    
+    // Перемальовуємо каталог, щоб кнопка знову стала активною після видалення з кошика
+    renderCatalog(tovari);
 }
 
 // Обробка кліків по всьому документу (делегування)
