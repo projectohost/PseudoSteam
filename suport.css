@@ -18,16 +18,16 @@ body {
 
 /* Навігація */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 15px 50px !important;
     background-color: rgba(26, 11, 46, 0.8);
-    backdrop-filter: blur(10px);
-    border-bottom: 2px solid var(--main-purple);
-    position: sticky;
+    backdrop-filter: blur(10px) !important;
+    border-bottom: 2px solid var(--main-purple) !important;
+    position: sticky !important;
     top: 0;
-    z-index: 1000;
+    z-index: 1000 !important;
 }
 
 .logo-area {
