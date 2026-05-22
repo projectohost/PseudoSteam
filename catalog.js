@@ -19,7 +19,7 @@ const tovari = [
     },
     {
         name: "Red Dead Redemption 2",
-        category:"western, shooter",
+        category: "western, shooter",
         price: 500,
         image: "./images/Red_2.jpg"
     },
@@ -56,26 +56,31 @@ const tovari = [
     {
         name: "GTA V",
         category: "хз",
-        price: 1000 ,
+        price: 1000,
         image: "./images/Grand_Theft_Auto_V.png"
-    },
-    
-]
+    }
+];
 
-// Знаходимо контейнер, куди будемо додавати картки (переконайся, що в HTML є елемент з таким id)
+// Масив для збереження товарів у кошику
+let cart = [];
+
 const container = document.querySelector('.catalog');
+const cartSidebar = document.getElementById('cart-sidebar');
+const cartItemsContainer = document.querySelector('.cart-items');
+const cartTotalPriceEl = document.getElementById('cart-total-price');
 
+// Функція виведення карток товарів
 function renderCatalog(items) {
-    // Очищуємо контейнер перед рендером
     container.innerHTML = "";
 
-    items.forEach(game => {
-        // Створюємо головну обгортку картки
+    items.forEach((game, index) => {
         const card = document.createElement('div');
         card.classList.add('game-card');
 
-        // Перевіряємо ціну: якщо це число, додаємо "грн", якщо текст — лишаємо як є
         const displayPrice = typeof game.price === 'number' ? `${game.price} грн` : game.price;
+        
+        // Перевіряємо, чи цей товар вже є в кошику (на випадок перемальовування каталогу)
+        const isAlreadyInCart = cart.some(cartGame => cartGame.name === game.name);
 
         card.innerHTML = `
             <img src="${game.image}" alt="${game.name}" class="game-image">
@@ -83,7 +88,9 @@ function renderCatalog(items) {
                 <h3 class="game-title">${game.name}</h3>
                 <p class="game-category">Категорія: ${game.category}</p>
                 <p class="game-price">Ціна: <strong>${displayPrice}</strong></p>
-                <button class="buy-btn">Придбати</button>
+                <button class="buy-btn" data-index="${index}" ${isAlreadyInCart ? 'disabled style="background: #555; cursor: not-allowed; box-shadow: none;"' : ''}>
+                    ${isAlreadyInCart ? 'Уже в кошику' : 'Придбати'}
+                </button>
             </div>
         `;
 
@@ -91,5 +98,97 @@ function renderCatalog(items) {
     });
 }
 
-// Запуск функції
+// Функція оновлення інтерфейсу кошика
+function updateCartUI() {
+    cartItemsContainer.innerHTML = "";
+    let total = 0;
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `<p style="text-align: center; color: var(--text-gray);">Кошик порожній :(</p>`;
+        cartTotalPriceEl.textContent = 0;
+        return;
+    }
+
+    cart.forEach((game, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.classList.add('cart-item');
+
+        const displayPrice = typeof game.price === 'number' ? `${game.price} грн` : game.price;
+        
+        if (typeof game.price === 'number') {
+            total += game.price;
+        }
+
+        itemEl.innerHTML = `
+            <img src="${game.image}" class="cart-item-img" alt="${game.name}">
+            <div class="cart-item-info">
+                <h4 class="cart-item-title">${game.name}</h4>
+                <p class="cart-item-price">${displayPrice}</p>
+                <button class="remove-item-btn" data-cart-index="${index}">Видалити</button>
+            </div>
+        `;
+
+        cartItemsContainer.appendChild(itemEl);
+    });
+
+    cartTotalPriceEl.textContent = total;
+}
+
+// Додавання гри в кошик
+function addToCart(gameIndex) {
+    const selectedGame = tovari[gameIndex];
+    
+    // ПЕРЕВІРКА: чи є вже гра з таким ім'ям у кошику
+    const exists = cart.some(game => game.name === selectedGame.name);
+    
+    if (exists) {
+        alert("Цей товар вже додано до кошика!");
+        return; 
+    }
+
+    cart.push(selectedGame);
+    updateCartUI();
+    
+    // Перемальовуємо каталог, щоб кнопка доданого товару заблокувалася
+    renderCatalog(tovari);
+    
+    cartSidebar.classList.add('open');
+}
+
+// Видалення гри з кошика
+function removeFromCart(cartIndex) {
+    cart.splice(cartIndex, 1);
+    updateCartUI();
+    
+    // Перемальовуємо каталог, щоб кнопка знову стала активною після видалення з кошика
+    renderCatalog(tovari);
+}
+
+// Обробка кліків по всьому документу (делегування)
+document.body.addEventListener('click', (e) => {
+    if (e.target.classList.contains('buy-btn') && e.target.hasAttribute('data-index')) {
+        const index = e.target.getAttribute('data-index');
+        addToCart(index);
+    }
+    
+    if (e.target.classList.contains('remove-item-btn')) {
+        const cartIndex = e.target.getAttribute('data-cart-index');
+        removeFromCart(cartIndex);
+    }
+});
+
+// Кнопка кошика у верхній панелі — працює як перемикач (відкриває/закриває)
+const carey = document.querySelector('.corzuna-link');
+carey.addEventListener('click', (e) => {
+    e.preventDefault();
+    cartSidebar.classList.toggle('open');
+});
+
+// Хрестик закриття всередині кошика
+const closeCartBtn = document.getElementById('close-cart-btn');
+closeCartBtn.addEventListener('click', () => {
+    cartSidebar.classList.remove('open');
+});
+
+// Перший запуск
 renderCatalog(tovari);
